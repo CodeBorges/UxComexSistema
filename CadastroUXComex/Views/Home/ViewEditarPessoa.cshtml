@@ -1,0 +1,163 @@
+﻿<html>
+<head>
+    @model Pessoas
+    @{
+        ViewData["Title"] = "Cadastro de Pessoas";
+    }
+    <partial name="/Views/Shared/_Alertas.cshtml" />
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-12">
+            <h4 class="content-title">Edição de Cadastro</h4>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#modalEndereco" onclick='ModalEndereco()'>
+                        Novo Endereço
+                    </button>
+                    <div class="row">
+                        <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-3">
+                            <form method="post">
+                                <input type="text" id="txtIdPessoa" value="@Model.Id" hidden />
+                                <div class="mb-3">
+                                    <label for="txtNome" class="form-label">Nome</label>
+                                    <input type="text" id="txtNome" name="Nome" class="form-control"
+                                           value="@Model.Nome" placeholder="Digite aqui seu nome" maxlength="255" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="txtTelefone" class="form-label">Telefone</label>
+                                    <input type="text" id="txtTelefone" name="Telefone" class="form-control"
+                                           value="@Model.Telefone" placeholder="Digite aqui seu telefone" maxlength="14" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="txtCpf" class="form-label">CPF</label>
+                                    <input type="text" id="txtCpf" name="CPF" class="form-control"
+                                           value="@Model.CPF" placeholder="Digite aqui seu CPF" maxlength="11" required>
+                                </div>
+                                <div class="mb-3">
+                                    <a id="btnEditar" onclick="SalvarPessoa()" class="btn btn-success">Salvar</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="border-3 mb-4" style="opacity: inherit;" />
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped text-center" style="font-size: 13px">
+                                    <thead>
+                                        <tr>
+                                            <th>Editar</th>
+                                            <th>Endereço</th>
+                                            <th>CEP</th>
+                                            <th>Cidade</th>
+                                            <th>Estado</th>
+                                            <th>Excluir</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Enderecos)
+                                        {
+                                            <tr>
+                                                <td class="td-clicavel">
+                                                    <a href="#" onclick="EditarEndereco();" class="td-clicavel">
+                                                        <div class="td-clicavel">
+                                                            <i class="fa-solid fa-pen-to-square fa-lg text-success"></i>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td class="tdIdEndereco" hidden>@item.Id</td>
+                                                <td class="tdEndereco">@item.Endereco</td>
+                                                <td class="tdCep">@item.CEP</td>
+                                                <td class="tdCidade">@item.Cidade</td>
+                                                <td class="tdEstado">@item.Estado</td>
+                                                <td>
+                                                    <a href="#" class="td-clicavel" onclick="ExcluirEndereco(@item.Id);">
+                                                        <div class="td-clicavel">
+                                                            <i class="fa-solid fa-trash fa-lg text-danger"></i>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modalExcluir" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atenção!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja realmente excluir esse registro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <a id="btnExcluir" class="btn btn-danger">Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modalEndereco">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Formulário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="myForm">
+                        <!-- Campos do formulário -->
+                        <div class="form-group">
+                            <input type="text" id="txtIdEndereco" hidden />
+                            <label for="txtCep">CEP</label>
+                            <input type="text" class="form-control" id="txtCep" name="cep"
+                                   maxlength="8" onkeyup="if (this.value.length === 8) {VerificarCep(this.value) }">
+                            <div id="errorMessage" style="font-size: 0.7rem; color: red;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtEndereco">Endereço</label>
+                            <input type="text" class="form-control" id="txtEndereco" name="endereco" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCidade">Cidade</label>
+                            <input type="text" class="form-control" id="txtCidade" name="cidade" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtEstado">Estado</label>
+                            <input type="text" class="form-control" id="txtEstado" name="estado" disabled>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" id="btnSalvar" onclick="SalvarEndereco()" hidden>Salvar</button>
+                    <button type="button" class="btn btn-primary" id="btnCadastrar" onclick="CadastrarEndereco()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    <script src="~/js/ViewPessoas/Pessoas.js"></script>
+}

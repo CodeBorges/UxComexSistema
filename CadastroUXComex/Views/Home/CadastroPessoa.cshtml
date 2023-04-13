@@ -1,0 +1,69 @@
+﻿@model List<Pessoas>
+@{
+    ViewData["Title"] = "Cadastro de Pessoas";
+}
+<partial name="/Views/Shared/_Alertas.cshtml" />
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Cadastro de Pessoas</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-3">
+                        <form method="post">
+                            <input type="text" id="txtIdPessoa" hidden />
+                            <div class="mb-3">
+                                <label for="txtNome" class="form-label">Nome</label>
+                                <input type="text" id="txtNome" name="Nome" class="form-control"
+                                       placeholder="Digite aqui seu nome" maxlength="255" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtTelefone" class="form-label">Telefone</label>
+                                <input type="text" id="txtTelefone" name="Telefone" class="form-control"
+                                       placeholder="Digite aqui seu telefone" maxlength="14" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtCpf" class="form-label">CPF</label>
+                                <input type="text" id="txtCpf" name="CPF" class="form-control"
+                                       placeholder="Digite aqui seu CPF" maxlength="11" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <a id="btnCadastrar" onclick="CadastrarPessoa()" class="btn btn-primary">Cadastrar</a>
+                                <button id="btnCancelar" type="reset" class="btn btn-danger">Limpar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalExcluir" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir esse registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btnExcluir" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/ViewPessoas/Pessoas.js"></script>
+}

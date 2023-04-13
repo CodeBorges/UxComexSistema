@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<!doctype html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body class="text-center">
+
+    <div class="cover-container d-flex w-100 h-100 p-5 mx-auto flex-column">
+
+        <main role="main" class="inner cover">
+            <h1 class="cover-heading">Teste da <a href="https://uxcomex.com.br/" style="text-decoration:none;">UxComex</a> </h1>
+            <p class="lead">
+
+            </p>
+            <p class="lead p-5">
+                <button type="button" class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#infoModal" onclick="ModalInfo()">
+                    Saiba Mais
+                </button>
+            </p>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>Front-End usando <a href="https://getbootstrap.com/">Bootstrap</a>, feito por João Victor Borges.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">O que fazer?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body" id="myText">
+                    <ol>
+                        <li>Tela de listagem dos cadastros já existentes, com um botão "+ Cadastro"</li>
+                        <li>Tela para o cadastro da pessoa com Nome, Telefone e CPF</li>
+                        <li>Tela de edição do cadastro, com uma lista dos endereços já cadastrados da pessoa e um botão "+ Endereço"</li>
+                        <li>Ao clicar no botão "+ Endereço", abrir um modal para cadastrar o endereço com os campos Endereço, CEP, Cidade e Estado</li>
+                        <li>Opcionalmente, utilizar a API para consulta de CEP</li>
+                        <li>Ao clicar em cima do nome/endereço da pessoa, abrir uma tela para edição do cadastro</li>
+                        <li>Botão "X" em cada linha para excluir um cadastro</li>
+                        <li>Utilização do Dapper para pesquisa e tradução dos dados do banco em classes do C#</li>
+                        <li>Escrita de queries em T-SQL</li>
+                        <li>Utilização do Asp.Net MVC</li>
+                        <li>Banco de dados SQL Server</li>
+                        <li>Criação de um database project para envio do banco</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a type="button" class="btn btn-primary" href="@Url.Action("ListaPessoas", "Home")">Ir ao sistema</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Index/Index.js"></script>
+
+</body>
+</html>
+

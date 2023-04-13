@@ -1,0 +1,89 @@
+﻿@model List<Pessoas>
+@{
+    ViewData["Title"] = "Lista de Pessoas";
+}
+<partial name="/Views/Shared/_Alertas.cshtml" />
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Lista de Pessoas</h4>
+        <a class="btn btn-primary float-end m-3" href="@Url.Action("CadastroPessoa", "Home")">Adicionar Pessoa</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped text-center" style="font-size: 13px">
+                                <thead>
+                                    <tr>
+                                        <th>Editar</th>
+                                        <th>Nome</th>
+                                        <th>Telefone</th>
+                                        <th>CPF</th>
+                                        <th>Endereços</th>
+                                        <th>Excluir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("ViewEditarPessoa", "Home", new { id = item.Id })">
+                                                    <i class="fa-solid fa-pen-to-square fa-lg text-success"></i>
+                                                </a>
+                                            </td>
+                                            <td class="tdIdPessoas" hidden>@item.Id</td>
+                                            <td class="tdNome">@item.Nome</td>
+                                            <td class="tdTelefone">@item.Telefone</td>
+                                            <td class="tdCpf">@item.CPF</td>
+                                            <td>
+                                                <a href="@Url.Action("ViewEditarPessoa", "Home", new { id = item.Id })">
+                                                    <i class="fas fa-list"></i>
+                                                </a>
+                                            </td>
+                                            <td class="td-clicavel">
+                                                <a href="#" class="td-clicavel" onclick="ExcluirPessoa(@item.Id);">
+                                                    <div class="td-clicavel">
+                                                        <i class="fa-solid fa-trash fa-lg text-danger"></i>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalExcluir" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir esse registro?</p>
+                <p style="font-size: 0.8rem; color:red;">Observação: Ao excluir uma pessoa, todos os dados vinculados a ela serão deletados.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btnExcluir" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/ViewPessoas/ListaPessoas.js"></script>
+}
